@@ -1,0 +1,9 @@
+{
+  "name": "lrz",
+  "version": "0.0.1",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-clean": "^0.3.1",
+    "gulp-uglify": "^1.0.2"
+  }
+}
