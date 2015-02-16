@@ -3,8 +3,8 @@
 
     input.onchange = function () {
         lrz(this.files[0], {width: 400}, function (results) {
-            console.log(results); // 你需要的数据都在这里，以字符串的形式传送base64给服务端转存为图片。
-
+            // 你需要的数据都在这里，可以以字符串的形式传送base64给服务端转存为图片。
+            console.log(results);
 
 
 
