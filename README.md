@@ -1,7 +1,3 @@
-## lrz的历史
-* lrz1，基于jquery。
-* lrz2，基于原生js，却是用coffeescript写的 Orz, 有UI，存在已知BUG。
-
 ## 介绍一下
 lrz3
 
@@ -11,12 +7,12 @@ lrz3
 
 希望这一版本能够真正帮到大家。 ：）
 
-## 依然是演示
+## 演示
 ![](http://think2011.qiniudn.com/lrz3-demo.gif)
 
 [在线演示](http://lrz3.herokuapp.com/)
 
-## 基础例子
+## 基本例子
 请先根据情况引入 `lrz.mobile.min.js` 或 `lrz.pc.min.js`。
 
 ```javascript
@@ -39,8 +35,11 @@ input.onchange = function () {
 
 ![移动设备请扫描](http://think2011.qiniudn.com/lrz3-qrcode.png)
 
-## 有些疑问
-[请直接在 issues 中提问](https://github.com/think2011/localResizeIMG3/issues)
+## lrz的历史
+* lrz1，基于jquery。
+* lrz2，基于原生js，却是用coffeescript写的 Orz, 有UI，存在已知BUG。
+
+[有疑问请直接在 issues 中提问](https://github.com/think2011/localResizeIMG3/issues)
 
 ---
 > ##### 时间： 2015年02月
