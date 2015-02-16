@@ -28,7 +28,7 @@ app.post('/', function (req, res) {
         var file = fs.readFileSync(fileSrc);
         res.send({
             size: file.length,
-            src: req.url + 'demo.jpg'
+            src: req.url + 'demo.jpg?' + Date.now()
         });
     });
 });
