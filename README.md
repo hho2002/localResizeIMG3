@@ -43,6 +43,5 @@ input.onchange = function () {
 > ##### 时间： 2015年02月
 > ##### 演示： [在线演示](http://lrz3.herokuapp.com/)
 > ##### 下载： [点此进入](https://github.com/think2011/localResizeIMG3/releases)
-> ##### 源码： [lrz3](https://github.com/think2011/localResizeIMG3/blob/master/src/lrz.js)
 > ##### 博客： [think2011](http://think2011.github.io)
 
