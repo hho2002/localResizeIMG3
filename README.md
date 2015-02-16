@@ -31,7 +31,7 @@ input.onchange = function () {
 * chrome 什么的都支持。
 * 移动设备几乎都支持，若有问题，请先在 [在线演示](http://lrz3.herokuapp.com/) 测试一下。
 
-![移动设备请扫描](http://think2011.qiniudn.com/lrz3-qrcode.png)
+移动设备请扫描：![移动设备请扫描](http://think2011.qiniudn.com/lrz3-qrcode.png)
 
 ## lrz的历史
 * lrz1，基于jquery。
