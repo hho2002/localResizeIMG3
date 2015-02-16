@@ -30,7 +30,7 @@ input.onchange = function () {
 }
 ```
 
-[详细API，点我](https://github.com/think2011/localResizeIMG3/wiki);
+[详细API，点我](https://github.com/think2011/localResizeIMG3/wiki)
 
 ## 兼容性
 * IE9 及 以上
