@@ -16,14 +16,34 @@
 
             if(footer) footer.remove();
             report.innerHTML = '';
-            tip.innerHTML = '正在生成和上传.. （演示使用了大量内存，不代表真实表现，请亲测。）';
+            tip.innerHTML = '<p>正在生成和上传..</p> <small class="text-muted">演示使用了大量内存，可能会造成几秒内卡顿，不代表真实表现，请亲测。</small>';
+            demo_report('原始图片', results.blob, results.origin.size);
 
             setTimeout(function () {
-                demo_report('原始图片', results.blob, results.origin.size);
                 demo_report('客户端预压的图片', results.base64, results.base64.length * 0.8);
-                demo_report('服务端实存的图片', results.base64, results.base64.length * 0.8);
 
-                tip.innerHTML = '生成和上传完毕（演示使用了大量内存，不代表真实表现，请亲测。）';
+                // 发送到后端
+                var xhr = new XMLHttpRequest();
+                var data = {
+                    base64: results.base64,
+                    size: results.base64.length // 校验用，防止未完整接收
+                };
+
+                xhr.open('POST', '/');
+                xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+                xhr.onreadystatechange = function () {
+                    if(xhr.readyState === 4 && xhr.status === 200) {
+                        var result = JSON.parse(xhr.response);
+
+                        result.error
+                            ? alert('服务端错误，未能保存图片')
+                            : demo_report('服务端实存的图片', result.src, result.size);
+
+                        tip.innerHTML = '<p>生成和上传完毕</p> <small class="text-muted">演示使用了大量内存，可能会造成几秒内卡顿，不代表真实表现，请亲测。</small>';
+                    }
+                };
+
+                xhr.send(JSON.stringify(data)); // 发送base64
             }, 100);
         });
     };
@@ -42,7 +62,7 @@
         img.onload = function () {
             var content = '<ul>' +
                 '<li>'+ title +'（'+ img.width +' X '+ img.height +'）</li>' +
-                '<li>'+ size +'</li>' +
+                '<li class="text-cyan">'+ size +'</li>' +
                 '</ul>';
 
             li.className = 'item';

@@ -180,4 +180,4 @@
     window.lrz = function (file, options, callback) {
         return new Lrz(file, options, callback);
     };
-})();
+})()
