@@ -2,6 +2,7 @@ var express = require('express');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 var app = express();
+var port = process.env.PORT || 1991;
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/src/'));
@@ -32,6 +33,6 @@ app.post('/', function (req, res) {
     });
 });
 
-var server = app.listen(3000, function () {
-    console.log('app running at ' + process.env.PORT);
+var server = app.listen(port, function () {
+    console.log('app running at ' + port);
 });
