@@ -82,7 +82,7 @@
                             quality: that.defaults.quality
                         });
                     } catch (_error) {
-                        throw Error('未引用mobile补丁，无法生成图片。');
+                        alert('未引用mobile补丁，无法生成图片。');
                     }
                 }
 
@@ -126,7 +126,7 @@
                             var encoder = new JPEGEncoder();
                             results.base64 = encoder.encode(ctx.getImageData(0, 0, canvas.width, canvas.height), that.defaults.quality * 100);
                         } catch (_error) {
-                            throw Error('未引用mobile补丁，无法生成图片。');
+                            alert('未引用mobile补丁，无法生成图片。');
                         }
                     }
 
