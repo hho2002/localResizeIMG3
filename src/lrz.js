@@ -1,5 +1,5 @@
 /**
- * lrz3.0.0
+ * lrz3
  * https://github.com/think2011/localResizeIMG3
  * @author think2011
  */
