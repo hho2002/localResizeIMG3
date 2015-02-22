@@ -92,10 +92,6 @@
                         orientation = orientationEXIF ? +orientationEXIF[1] : 1;
 
                     switch (orientation) {
-                        case 1:
-                            ctx.drawImage(img, 0, 0, resize.w, resize.h);
-                            break;
-
                         case 3:
                             ctx.rotate(180 * Math.PI / 180);
                             ctx.drawImage(img, -resize.w, -resize.h, resize.w, resize.h);
@@ -116,7 +112,7 @@
                             break;
 
                         default :
-                        //
+                            ctx.drawImage(img, 0, 0, resize.w, resize.h);
 
                     }
 
