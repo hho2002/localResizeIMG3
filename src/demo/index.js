@@ -14,8 +14,7 @@
                 report = document.querySelector('#report'),
                 footer = document.querySelector('footer');
 
-            if(footer) footer.remove();
-            report.innerHTML = '';
+            report.innerHTML = footer.innerHTML =  '';
             tip.innerHTML = '<p>正在生成和上传..</p> <small class="text-muted">演示使用了大量内存，可能会造成几秒内卡顿，不代表真实表现，请亲测。</small>';
             demo_report('原始图片', results.blob, results.origin.size);
 
@@ -32,7 +31,7 @@
                 xhr.open('POST', '/');
                 xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
                 xhr.onreadystatechange = function () {
-                    if(xhr.readyState === 4 && xhr.status === 200) {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
                         var result = JSON.parse(xhr.response);
 
                         result.error
@@ -61,8 +60,8 @@
 
         img.onload = function () {
             var content = '<ul>' +
-                '<li>'+ title +'（'+ img.width +' X '+ img.height +'）</li>' +
-                '<li class="text-cyan">'+ size +'</li>' +
+                '<li>' + title + '（' + img.width + ' X ' + img.height + '）</li>' +
+                '<li class="text-cyan">' + size + '</li>' +
                 '</ul>';
 
             li.className = 'item';
