@@ -72,77 +72,72 @@
                 canvas.height = resize.h;
                 ctx = canvas.getContext('2d');
 
-                // 生成结果
-                results.blob = blob;
-                results.origin = file;
-
                 // 兼容 IOS
                 if (/iphone/i.test(userAgent)) {
                     try {
                         var mpImg = new MegaPixImage(img);
                         mpImg.render(canvas, {
                             maxWidth: canvas.width,
-                            maxHeight: canvas.height,
-                            quality: that.defaults.quality
-                        });
-
-                        // 调整正确的拍摄方向
-                        EXIF.getData(img, function () {
-                            var orientationEXIF = (EXIF.pretty(this)).match(/Orientation : (\d)/),
-                                orientation = orientationEXIF ? +orientationEXIF[1] : 1;
-
-                            switch (orientation) {
-                                case 3:
-                                    ctx.rotate(180 * Math.PI / 180);
-                                    ctx.drawImage(img, -resize.w, -resize.h, resize.w, resize.h);
-                                    break;
-
-                                case 6:
-                                    canvas.width = resize.h;
-                                    canvas.height = resize.w;
-                                    ctx.rotate(90 * Math.PI / 180);
-                                    ctx.drawImage(img, 0, -resize.h, resize.w, resize.h);
-                                    break;
-
-                                case 8:
-                                    canvas.width = resize.h;
-                                    canvas.height = resize.w;
-                                    ctx.rotate(270 * Math.PI / 180);
-                                    ctx.drawImage(img, -resize.w, 0, resize.w, resize.h);
-                                    break;
-
-                                default :
-                                    ctx.drawImage(img, 0, 0, resize.w, resize.h);
-
-                            }
-
-                            results.base64 = canvas.toDataURL('image/jpeg', that.defaults.quality);
+                            maxHeight: canvas.height
                         });
                     } catch (_error) {
                         alert('未引用mobile补丁，无法生成图片。');
                     }
                 }
 
-                // 兼容 Android
-                else if (/Android/i.test(userAgent)) {
-                    try {
-                        var encoder = new JPEGEncoder();
+                // 调整正确的拍摄方向
+                EXIF.getData(img, function () {
+                    var orientationEXIF = (EXIF.pretty(this)).match(/Orientation : (\d)/),
+                        orientation = orientationEXIF ? +orientationEXIF[1] : 1;
 
-                        ctx.drawImage(img, 0, 0, resize.w, resize.h);
-                        results.base64 = encoder.encode(ctx.getImageData(0, 0, canvas.width, canvas.height), that.defaults.quality * 100);
-                    } catch (_error) {
-                        alert('未引用mobile补丁，无法生成图片。');
+                    switch (orientation) {
+                        case 3:
+                            ctx.rotate(180 * Math.PI / 180);
+                            ctx.drawImage(img, -resize.w, -resize.h, resize.w, resize.h);
+                            break;
+
+                        case 6:
+                            canvas.width = resize.h;
+                            canvas.height = resize.w;
+                            ctx.rotate(90 * Math.PI / 180);
+                            ctx.drawImage(img, 0, -resize.h, resize.w, resize.h);
+                            break;
+
+                        case 8:
+                            canvas.width = resize.h;
+                            canvas.height = resize.w;
+                            ctx.rotate(270 * Math.PI / 180);
+                            ctx.drawImage(img, -resize.w, 0, resize.w, resize.h);
+                            break;
+
+                        default :
+                            ctx.drawImage(img, 0, 0, resize.w, resize.h);
+
                     }
-                }
 
-                // 其他情况
-                else {
-                    ctx.drawImage(img, 0, 0, resize.w, resize.h);
-                    results.base64 = canvas.toDataURL('image/jpeg', that.defaults.quality);
-                }
+                    // 生成结果
+                    results.blob = blob;
+                    results.origin = file;
 
-                // 执行回调
-                callback(results);
+                    // 兼容 Android
+                    if (/Android/i.test(userAgent)) {
+                        try {
+                            var encoder = new JPEGEncoder();
+
+                            results.base64 = encoder.encode(ctx.getImageData(0, 0, canvas.width, canvas.height), that.defaults.quality * 100);
+                        } catch (_error) {
+                            alert('未引用mobile补丁，无法生成图片。');
+                        }
+                    }
+
+                    // 其他情况&IOS
+                    else {
+                        results.base64 = canvas.toDataURL('image/jpeg', that.defaults.quality);
+                    }
+
+                    // 执行回调
+                    callback(results);
+                });
             };
 
             img.src = blob;
