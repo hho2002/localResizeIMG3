@@ -61,7 +61,9 @@
 </style>
 <body>
 
-<input type="file" accept="image/png,image/gif,image/jpg,image/jpeg,image/tiff,image/svg" capture="camera" />
+<input type="file" capture="camera" />
+<!--<input type="file" accept="image/*" capture="camera" /> 部分手机无法正确限制图片格式 -->
+
 <hr/>
 <div id="tip"><!-- 演示提示 --></div>
 <ul id="report"><!-- 演示报告 --></ul>
@@ -70,9 +72,9 @@
     <p style=""><a href="https://github.com/think2011/localResizeIMG3">localResizeIMG3 by think2011</a></p>
 </footer>
 
-<script src="../lib/mobileFix.mini.js"></script>
-<script src="../lib/exif.js"></script>
-<script src="../lrz.js"></script>
-<script src="index.js"></script>
+<script src="../lib/mobileFix.mini.js?v=cf6dbb5"></script>
+<script src="../lib/exif.js?v=0da8553"></script>
+<script src="../lrz.js?v=c2f2fb3"></script>
+<script src="index.js?v=6bb92d4"></script>
 </body>
 </html>
