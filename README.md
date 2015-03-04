@@ -37,7 +37,7 @@ input.onchange = function () {
 * lrz1，基于jquery。
 * lrz2，基于原生js，却是用coffeescript写的 Orz, 有UI，存在已知BUG。
 
-[有疑问请直接在 issues 中提问](https://github.com/think2011/localResizeIMG3/issues)
+[有疑问请直接在 issues 中提问，最好说明设备及型号](https://github.com/think2011/localResizeIMG3/issues)
 
 * Q：有时选择、拍摄完照片后，页面自动刷新了。
 * A：内存爆掉了，常见于低配android手机，暂时没有很好的解决办法。
