@@ -79,7 +79,6 @@
                         width: canvas.width,
                         height: canvas.height,
                         orientation: EXIF.getTag(this, "Orientation")
-
                     });
 
                     // 绘图
