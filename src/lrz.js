@@ -72,48 +72,18 @@
                 canvas.height = resize.h;
                 ctx = canvas.getContext('2d');
 
-                // 兼容 IOS
-                if (/iphone/i.test(userAgent)) {
-                    try {
-                        var mpImg = new MegaPixImage(img);
-                        mpImg.render(canvas, {
-                            maxWidth: canvas.width,
-                            maxHeight: canvas.height
-                        });
-                    } catch (_error) {
-                        alert('未引用mobile补丁，无法生成图片。');
-                    }
-                }
-
                 // 调整正确的拍摄方向
+                var mpImg = new MegaPixImage(file);
                 EXIF.getData(img, function () {
-                    var orientationEXIF = (EXIF.pretty(this)).match(/Orientation : (\d)/),
-                        orientation = orientationEXIF ? +orientationEXIF[1] : 1;
+                    mpImg.render(canvas, {
+                        width: canvas.width,
+                        height: canvas.height,
+                        orientation: EXIF.getTag(this, "Orientation")
 
-                    switch (orientation) {
-                        case 3:
-                            ctx.rotate(180 * Math.PI / 180);
-                            ctx.drawImage(img, -resize.w, -resize.h, resize.w, resize.h);
-                            break;
+                    });
 
-                        case 6:
-                            canvas.width = resize.h;
-                            canvas.height = resize.w;
-                            ctx.rotate(90 * Math.PI / 180);
-                            ctx.drawImage(img, 0, -resize.h, resize.w, resize.h);
-                            break;
-
-                        case 8:
-                            canvas.width = resize.h;
-                            canvas.height = resize.w;
-                            ctx.rotate(270 * Math.PI / 180);
-                            ctx.drawImage(img, -resize.w, 0, resize.w, resize.h);
-                            break;
-
-                        default :
-                            ctx.drawImage(img, 0, 0, resize.w, resize.h);
-
-                    }
+                    // 绘图
+                    ctx.drawImage(img, resize.w, resize.h);
 
                     // 生成结果
                     results.blob = blob;
