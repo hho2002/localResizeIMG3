@@ -72,4 +72,9 @@
 
         img.src = src;
     }
+
+    // 演示用服务器太慢，做个延缓加载
+    window.onload = function () {
+        input.style.display = 'block';
+    }
 })();
