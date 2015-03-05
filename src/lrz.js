@@ -80,10 +80,7 @@
                         height: canvas.height,
                         orientation: EXIF.getTag(this, "Orientation")
                     });
-
-                    // 绘图
-                    ctx.drawImage(img,0, 0, resize.w, resize.h);
-
+                    
                     // 生成结果
                     results.blob = blob;
                     results.origin = file;
@@ -101,6 +98,7 @@
 
                     // 其他情况&IOS
                     else {
+                        ctx.drawImage(img,0, 0, resize.w, resize.h);
                         results.base64 = canvas.toDataURL('image/jpeg', that.defaults.quality);
                     }
 
