@@ -73,7 +73,7 @@
                 ctx = canvas.getContext('2d');
 
                 // 调整正确的拍摄方向
-                var mpImg = new MegaPixImage(file);
+                var mpImg = new MegaPixImage(img);
                 EXIF.getData(img, function () {
                     mpImg.render(canvas, {
                         width: canvas.width,
