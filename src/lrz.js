@@ -82,7 +82,7 @@
                     });
 
                     // 绘图
-                    ctx.drawImage(img, resize.w, resize.h);
+                    ctx.drawImage(img,0, 0, resize.w, resize.h);
 
                     // 生成结果
                     results.blob = blob;
