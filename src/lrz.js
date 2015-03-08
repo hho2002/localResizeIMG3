@@ -66,7 +66,7 @@
                 // 获得图片缩放尺寸
                 var resize = that.resize(this);
 
-                // 创建canvas
+                // 初始化canva
                 var canvas = document.createElement('canvas'), ctx;
                 canvas.width = resize.w;
                 canvas.height = resize.h;
@@ -80,6 +80,10 @@
                         height: canvas.height,
                         orientation: EXIF.getTag(this, "Orientation")
                     });
+
+                    // 设置白色背景
+                    ctx.fillStyle = '#fff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
                     
                     // 生成结果
                     results.blob = blob;
