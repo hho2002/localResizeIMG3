@@ -89,6 +89,8 @@
                     results.blob = blob;
                     results.origin = file;
 
+                    ctx.drawImage(img,0, 0, resize.w, resize.h);
+
                     // 兼容 Android
                     if (/Android/i.test(userAgent)) {
                         try {
@@ -102,7 +104,6 @@
 
                     // 其他情况&IOS
                     else {
-                        ctx.drawImage(img,0, 0, resize.w, resize.h);
                         results.base64 = canvas.toDataURL('image/jpeg', that.defaults.quality);
                     }
 
