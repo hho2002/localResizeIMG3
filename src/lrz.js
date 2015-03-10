@@ -1,5 +1,5 @@
 /**
- * lrz3.0.0
+ * lrz3
  * https://github.com/think2011/localResizeIMG3
  * @author think2011
  */
@@ -66,71 +66,39 @@
                 // 获得图片缩放尺寸
                 var resize = that.resize(this);
 
-                // 创建canvas
+                // 初始化canva
                 var canvas = document.createElement('canvas'), ctx;
                 canvas.width = resize.w;
                 canvas.height = resize.h;
                 ctx = canvas.getContext('2d');
 
-                // 兼容 IOS
-                if (/iphone/i.test(userAgent)) {
-                    try {
-                        var mpImg = new MegaPixImage(img);
-                        mpImg.render(canvas, {
-                            maxWidth: canvas.width,
-                            maxHeight: canvas.height,
-                            quality: that.defaults.quality
-                        });
-                    } catch (_error) {
-                        throw Error('未引用mobile补丁，无法生成图片。');
-                    }
-                }
-
                 // 调整正确的拍摄方向
+                var mpImg = new MegaPixImage(img);
                 EXIF.getData(img, function () {
-                    var orientationEXIF = (EXIF.pretty(this)).match(/Orientation : (\d)/),
-                        orientation = orientationEXIF ? +orientationEXIF[1] : 1;
+                    mpImg.render(canvas, {
+                        width: canvas.width,
+                        height: canvas.height,
+                        orientation: EXIF.getTag(this, "Orientation")
+                    });
 
-                    switch (orientation) {
-                        case 1:
-                            ctx.drawImage(img, 0, 0, resize.w, resize.h);
-                            break;
-
-                        case 3:
-                            ctx.rotate(180 * Math.PI / 180);
-                            ctx.drawImage(img, -resize.w, -resize.h, resize.w, resize.h);
-                            break;
-
-                        case 6:
-                            canvas.width = resize.h;
-                            canvas.height = resize.w;
-                            ctx.rotate(90 * Math.PI / 180);
-                            ctx.drawImage(img, 0, -resize.h, resize.w, resize.h);
-                            break;
-
-                        case 8:
-                            canvas.width = resize.h;
-                            canvas.height = resize.w;
-                            ctx.rotate(270 * Math.PI / 180);
-                            ctx.drawImage(img, -resize.w, 0, resize.w, resize.h);
-                            break;
-
-                        default :
-                        //
-
-                    }
-
+                    // 设置白色背景
+                    ctx.fillStyle = '#fff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
                     // 生成结果
                     results.blob = blob;
                     results.origin = file;
+
+                    ctx.drawImage(img,0, 0, resize.w, resize.h);
 
                     // 兼容 Android
                     if (/Android/i.test(userAgent)) {
                         try {
                             var encoder = new JPEGEncoder();
+
                             results.base64 = encoder.encode(ctx.getImageData(0, 0, canvas.width, canvas.height), that.defaults.quality * 100);
                         } catch (_error) {
-                            throw Error('未引用mobile补丁，无法生成图片。');
+                            alert('未引用mobile补丁，无法生成图片。');
                         }
                     }
 
@@ -180,4 +148,4 @@
     window.lrz = function (file, options, callback) {
         return new Lrz(file, options, callback);
     };
-})();
+})()
